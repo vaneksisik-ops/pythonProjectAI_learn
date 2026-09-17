@@ -1,47 +1,50 @@
-#Бит — это количество информации, необходимое для
-# однозначного определения одного из двух равновероятных событий.
-from random import choices
+inverse = int(input("Введите 1 для обычного перевода, и 2 для реверсивного: "))
 
 
-#В информатике принято рассматривать последовательности длиной 8 битов.
-# Такая последовательность называется байтом.
-# 1 байт = 8 битов
-# 1 Килобайт (Кбайт) = 1024 байта = 𝟐^𝟏𝟎 байтов
-# 1 Мегабайт (Мбайт) = 1024 Килобайта = 𝟐^𝟐𝟎 байтов
-# 1 Гигабайт (Гбайт) = 1024 Мегабайта = 𝟐^𝟑𝟎 байтов
-# 1 Терабайт (Тбайт) = 1024 Гигабайта = 𝟐^𝟒𝟎 байтов
+units = {
+    1: (1024, "KB"),
+    2: (1024 ** 2, "MB"),
+    3: (1024 ** 3, "GB"),
+    4: (1024 ** 4, "TB")
+}
 
-# kb convert programm
-def convert_bytes():
+if inverse == 1:
     try:
-        bytes_count = float(input("Enter bytes"))
+        bytes_count = float(input("Напишите количество байт: "))
     except ValueError:
-        print("Error enter bytes")
-        return
+        print("Ошибка")
+        exit()
 
+    user_choice = int(input("Выберите единицу для перевода"
+                            "\n1.KB"
+                            "\n2.MB"
+                            "\n3.GB"
+                            "\n4.TB"))
 
-    user_choise = int(input(f"Choose\n"
-                            f"1.KB\n"
-                            f"2.MB\n"
-                            f"3.GB\n"
-                            f"4.TB"))
-
-    units = {1:(1024,"KB"),
-             2:(1024**2,"MB"),
-             3:(1024**3,"GB"),
-             4:(1024**4,"TB")}
-
-    if user_choise in units:
-        divider, unit_name = units[user_choise]
+    if user_choice in units:
+        divider, units_name = units[user_choice]
         res = bytes_count / divider
-
-        print(f"Result:{bytes_count} bytes = {round(res,4)} {unit_name}")
-
+        print(f"Результат: {res}")
     else:
-        print("Error")
+        print("Ошибка")
 
-convert_bytes()
+elif inverse == 2:
+    try:
+        question = float(input("Напишите количеств"))
+    except ValueError:
+        print("Ошибка")
+        exit()
 
-#дописать программу перевода информации в различные единицы измерения
-# пример - Пользователь ввел 40 ГБ а ему нужно знать ответ в МБ
-# или наоборот пользователь задал значение в 20000МБ а ответ нужен в ТБ
+    inverse_user_choice = int(input("Какая это единица\n"
+                                        "1.KB\n"
+                                        "2.MB\n"
+                                        "3.GB\n"
+                                        "4.TB\n"))
+
+    if inverse_user_choice in units:
+        multiplier, inverse_units_name = units[inverse_user_choice]
+        inverse_res = question * multiplier
+        print(f"Результат: {inverse_res} байт")
+    else:
+        print("Ошибка")
+
